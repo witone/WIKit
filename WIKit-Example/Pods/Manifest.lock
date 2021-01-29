@@ -5,7 +5,8 @@ PODS:
     - WIKit/WIUI (= 0.1.0)
   - WIKit/Base (0.1.0)
   - WIKit/Utility (0.1.0)
-  - WIKit/WIUI (0.1.0)
+  - WIKit/WIUI (0.1.0):
+    - WIKit/Base
 
 DEPENDENCIES:
   - WIKit (from `../`)
@@ -15,7 +16,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WIKit: 5195ec709f58f22d5077a3d824d1e978a29d500f
+  WIKit: 318166ed783b47ba2b715faf7b23801c37293695
 
 PODFILE CHECKSUM: 318c0d712401331c9ed2fb929f559036a8ebfcbb
 

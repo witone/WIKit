@@ -44,8 +44,8 @@ TODO: Add long description of the pod here.
   end
   
   s.subspec 'WIUI' do |ss|
-      ss.public_header_files = 'WIKit/WIUI/**/*.h'
       ss.source_files = 'WIKit/WIUI/**/*'
+      ss.dependency 'WIKit/Base'
   end
   
   # s.resource_bundles = {

@@ -34,8 +34,12 @@
     },
     {
       "name": "WIUI",
-      "public_header_files": "WIKit/WIUI/**/*.h",
-      "source_files": "WIKit/WIUI/**/*"
+      "source_files": "WIKit/WIUI/**/*",
+      "dependencies": {
+        "WIKit/Base": [
+
+        ]
+      }
     }
   ]
 }
