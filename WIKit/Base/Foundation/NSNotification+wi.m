@@ -10,11 +10,11 @@
 
 @implementation NSNotification (wi)
 
-+(void)sendNotification:(NSString *)name object:(nullable id)obj userInfo:(NSDictionary *)userInfo {
++(void)sendNotification:(NSString *)name object:(id)obj userInfo:(NSDictionary *)userInfo {
     [NSNotification sendNotification:YES name:name object:obj userInfo:userInfo];
 }
 
-+(void)sendNotification:(BOOL)sendNotification name:(NSString *)name object:(nullable id)obj userInfo:(NSDictionary *)userInfo {
++(void)sendNotification:(BOOL)sendNotification name:(NSString *)name object:(id)obj userInfo:(NSDictionary *)userInfo {
     if (sendNotification) {
         NSNotification *notification = [NSNotification notificationWithName:name object:obj userInfo:userInfo];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
