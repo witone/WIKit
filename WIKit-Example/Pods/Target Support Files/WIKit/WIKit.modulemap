@@ -1,0 +1,6 @@
+framework module WIKit {
+  umbrella header "WIKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

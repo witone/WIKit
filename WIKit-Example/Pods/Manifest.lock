@@ -1,0 +1,22 @@
+PODS:
+  - WIKit (0.1.0):
+    - WIKit/Base (= 0.1.0)
+    - WIKit/Utility (= 0.1.0)
+    - WIKit/WIUI (= 0.1.0)
+  - WIKit/Base (0.1.0)
+  - WIKit/Utility (0.1.0)
+  - WIKit/WIUI (0.1.0)
+
+DEPENDENCIES:
+  - WIKit (from `../`)
+
+EXTERNAL SOURCES:
+  WIKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  WIKit: 5195ec709f58f22d5077a3d824d1e978a29d500f
+
+PODFILE CHECKSUM: 318c0d712401331c9ed2fb929f559036a8ebfcbb
+
+COCOAPODS: 1.10.1
