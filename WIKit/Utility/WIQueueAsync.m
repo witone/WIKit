@@ -12,7 +12,7 @@ dispatch_queue_t wi_dispatch_global_queue() {
     static dispatch_queue_t queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        queue = dispatch_queue_create("weather.globalQueue", DISPATCH_QUEUE_CONCURRENT);
+        queue = dispatch_queue_create("wikit.globalQueue", DISPATCH_QUEUE_CONCURRENT);
     });
     return queue;
 }
@@ -45,4 +45,8 @@ void wi_dispatch_main_async_safe(dispatch_block_t block) {
     }else {
         dispatch_async(dispatch_get_main_queue(), block);
     }
+}
+
+void wi_dispatch_after_main_queue(CGFloat second,dispatch_block_t block) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }

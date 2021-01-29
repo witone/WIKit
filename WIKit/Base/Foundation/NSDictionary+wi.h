@@ -14,4 +14,6 @@
 
 @interface NSDictionary (wi)
 
+-(NSString *)wi_jsonString;
+
 @end

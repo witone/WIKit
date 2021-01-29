@@ -70,6 +70,12 @@ static inline NSString *WIStringFromFloat(float floatValue) {
 -(double)wi_doubleValue;
 -(double)wi_doubleValue:(double)defVal;
 
+//区分中英文字符
+-(NSUInteger)wi_zh_length;
+-(NSString *)wi_zh_substringToIndex:(NSUInteger)to;
+-(NSString *)wi_zh_substringFromIndex:(NSUInteger)from;
+-(NSString *)wi_zh_substringWithRange:(NSRange)range;
+
 -(NSString *)wi_md5EncodedString;
 
 -(NSString *)wi_stringByURLEncode;

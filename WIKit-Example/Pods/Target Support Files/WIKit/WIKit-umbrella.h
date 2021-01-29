@@ -11,6 +11,9 @@
 #endif
 
 #import "WIKit.h"
+#import "WIKeyChain.h"
+#import "WIQueueAsync.h"
+#import "WIWeakProxy.h"
 #import "NSArray+wi.h"
 #import "NSData+wi.h"
 #import "NSDictionary+wi.h"
@@ -34,9 +37,6 @@
 #import "UIViewController+wi.h"
 #import "WIGeometry.h"
 #import "WIKitMacro.h"
-#import "WIKeyChain.h"
-#import "WIQueueAsync.h"
-#import "WIWeakProxy.h"
 #import "WIProgressView.h"
 
 FOUNDATION_EXPORT double WIKitVersionNumber;

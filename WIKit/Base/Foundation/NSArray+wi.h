@@ -17,4 +17,6 @@
 //针对按key排好序的数组查重
 -(NSArray *)wi_removeDupWithKey:(NSString *)key ascending:(BOOL)ascending;
 
+-(NSArray *)wi_sortWithKey:(NSString *)key ascending:(BOOL)ascending;
+
 @end

@@ -14,13 +14,20 @@
 + (nullable NSURL *)wi_URLWithString:(nonnull NSString *)string {
     NSURL *url = [NSURL URLWithString:string];
     if (url == nil) {
-        NSString *strTemp = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        url = [NSURL URLWithString:strTemp];
+        url = [NSURL URLWithString:[NSURL wi_urlQueryEncode:string]];
     }
     return url;
 }
 
-+ (NSDictionary *)paramsInURL:(NSURL *)url {
++ (NSString *)wi_urlQueryEncode:(NSString *)urlString {
+    //NSString *resultString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *charactersToEscape = @"\"%<>[\\]^`{|}";
+    NSCharacterSet *urlQueryAllowedCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+    NSString *resultString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:urlQueryAllowedCharacterSet];
+    return resultString;
+}
+
++ (NSDictionary *)wi_paramsInURL:(NSURL *)url {
     NSMutableDictionary *paramer = [[NSMutableDictionary alloc]init];
     NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:url.absoluteString];
     [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

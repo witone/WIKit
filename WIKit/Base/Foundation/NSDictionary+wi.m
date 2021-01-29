@@ -63,4 +63,14 @@
 
 @implementation NSDictionary (wi)
 
+-(NSString *)wi_jsonString {
+    NSString *jsonString;
+    NSUInteger count = self.count;
+    if (count > 0) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+        jsonString = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+
 @end

@@ -132,10 +132,15 @@
     return [self initWithFrame:CGRectMakeWithSize(size)];
 }
 
+- (void)bw_radiusWithRadius:(CGFloat)radius {
+    [self wi_radiusWithRadius:radius corner:UIRectCornerAllCorners];
+}
+
 - (void)wi_radiusWithRadius:(CGFloat)radius corner:(UIRectCorner)corner {
     if (@available(iOS 11.0, *)) {
         self.layer.cornerRadius = radius;
         self.layer.maskedCorners = (CACornerMask)corner;
+        self.layer.masksToBounds = YES;
     } else {
         UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -177,6 +182,12 @@
     while (self.subviews.count) {
         [self.subviews.lastObject removeFromSuperview];
     }
+}
+
+-(void)wi_addTarget:(id)target action:(SEL)selector {
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:target action:selector];
+    [self addGestureRecognizer:tapGestureRecognizer];
+    [self setUserInteractionEnabled:YES];
 }
 
 @end

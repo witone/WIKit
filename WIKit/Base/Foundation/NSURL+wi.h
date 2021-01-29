@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSURL *)wi_URLWithString:(nonnull NSString *)string;
 
-+ (NSDictionary *)paramsInURL:(NSURL *)url;
++ (NSString *)wi_urlQueryEncode:(NSString *)urlString;
++ (NSDictionary *)wi_paramsInURL:(NSURL *)url;
 
 @end
 

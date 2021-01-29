@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WIKit'
-  s.version          = '0.1.0'
-  s.summary          = '封装基础控件，提高开发效率'
+  s.version          = '0.1.1'
+  s.summary          = '拓展基础控件，提高开发效率'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+TODO: 拓展基础控件，提高开发效率.
                        DESC
 
   s.homepage         = 'https://github.com/wikit-zyp/WIKit'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'zyp' => 'me_zyp@163.com' }
-  s.source           = { :git => 'https://github.com/wikit-zyp/WIKit.git', :tag => '0.1.0' }
+  s.source           = { :git => 'https://github.com/wikit-zyp/WIKit.git', :tag => '0.1.1' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -33,19 +33,17 @@ TODO: Add long description of the pod here.
   s.public_header_files = 'WIKit/*.h'
   s.source_files = 'WIKit/WIKit.h'
   
-  s.subspec 'Base' do |ss|
-      ss.public_header_files = 'WIKit/Base/**/*.h'
+  s.subspec 'WICore' do |ss|
       ss.source_files = 'WIKit/Base/**/*'
   end
   
   s.subspec 'Utility' do |ss|
-      ss.public_header_files = 'WIKit/Utility/**/*.h'
       ss.source_files = 'WIKit/Utility/**/*'
   end
   
   s.subspec 'WIUI' do |ss|
       ss.source_files = 'WIKit/WIUI/**/*'
-      ss.dependency 'WIKit/Base'
+      ss.dependency 'WIKit/WICore'
   end
   
   # s.resource_bundles = {

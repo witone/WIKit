@@ -52,7 +52,7 @@ static NSString *wiBlockKey = @"wiBlockKey";
 }
 
 + (void)wi_recordException:(NSException *)exception {
-    Class class = NSClassFromString(@"BWLogUtils");
+    Class class = NSClassFromString(@"WILogUtils");
     SEL selector = NSSelectorFromString(@"exceptionLog:");
     if (class && [class respondsToSelector:selector]) {
 #pragma clang diagnostic push

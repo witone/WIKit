@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIImage *)wi_scaleToSize:(CGSize)size;
 
+- (UIImage *)wi_fixOrientation;
+
 @end
 
 NS_ASSUME_NONNULL_END

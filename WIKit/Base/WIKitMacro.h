@@ -13,7 +13,7 @@
 
 #define WIWEAK_SELF(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
-#define STRONG_SELF(strongSelf,weakSelf)  __strong __typeof(weakSelf)strongSelf = weakSelf;
+#define WISTRONG_SELF(strongSelf,weakSelf)  __strong __typeof(weakSelf)strongSelf = weakSelf;
 
 //弧度转角度
 #define WI_RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))

@@ -230,4 +230,20 @@
     }
 }
 
+-(NSArray *)wi_sortWithKey:(NSString *)key ascending:(BOOL)ascending {
+    if (!self) {
+        return nil;
+    }else if(self.count<=1){
+        return self;
+    }else{
+        @try {
+            NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
+            return [self sortedArrayUsingDescriptors:[NSArray arrayWithObjects:descriptor,nil]];
+        } @catch (NSException *exception) {
+            [NSObject wi_recordException:exception];
+            return self;
+        }
+    }
+}
+
 @end

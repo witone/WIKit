@@ -142,6 +142,28 @@
     return [self doubleValue];
 }
 
+-(NSUInteger)wi_zh_length {
+    return [self dataUsingEncoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)].length;
+}
+
+-(NSString *)wi_zh_substringToIndex:(NSUInteger)to {
+    NSData * data = [[self dataUsingEncoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)] subdataWithRange:NSMakeRange(0, to)];
+    return [[NSString alloc] initWithData:data encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+}
+
+-(NSString *)wi_zh_substringFromIndex:(NSUInteger)from {
+    NSData *oriData = [self dataUsingEncoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+    if (from>=oriData.length) {
+        return self;
+    }
+    return [[NSString alloc] initWithData:[oriData subdataWithRange:NSMakeRange(from, oriData.length-1)] encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+}
+
+-(NSString *)wi_zh_substringWithRange:(NSRange)range {
+    NSData *oriData = [self dataUsingEncoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+    return [[NSString alloc] initWithData:[oriData subdataWithRange:range] encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000)];
+}
+
 - (NSString *)wi_md5EncodedString {
     const char *cStr = [self UTF8String];
     unsigned char digest[16];
