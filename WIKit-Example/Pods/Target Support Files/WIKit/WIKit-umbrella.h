@@ -37,7 +37,6 @@
 #import "UIViewController+wi.h"
 #import "WIGeometry.h"
 #import "WIKitMacro.h"
-#import "WIProgressView.h"
 
 FOUNDATION_EXPORT double WIKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char WIKitVersionString[];

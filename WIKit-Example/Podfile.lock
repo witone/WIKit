@@ -1,12 +1,9 @@
 PODS:
-  - WIKit (0.1.1):
-    - WIKit/Utility (= 0.1.1)
-    - WIKit/WICore (= 0.1.1)
-    - WIKit/WIUI (= 0.1.1)
-  - WIKit/Utility (0.1.1)
-  - WIKit/WICore (0.1.1)
-  - WIKit/WIUI (0.1.1):
-    - WIKit/WICore
+  - WIKit (0.1.2):
+    - WIKit/Utility (= 0.1.2)
+    - WIKit/WICore (= 0.1.2)
+  - WIKit/Utility (0.1.2)
+  - WIKit/WICore (0.1.2)
 
 DEPENDENCIES:
   - WIKit (from `../`)
@@ -16,8 +13,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WIKit: 332b99a86568f0c94c10e4252f09b884c129c1b0
+  WIKit: 4dfc618f8373c37f8fa66f3c6f64245167dc68c7
 
-PODFILE CHECKSUM: 318c0d712401331c9ed2fb929f559036a8ebfcbb
+PODFILE CHECKSUM: a29a05ce4f787ba9665d1dc740db8e054325fbf2
 
 COCOAPODS: 1.10.1

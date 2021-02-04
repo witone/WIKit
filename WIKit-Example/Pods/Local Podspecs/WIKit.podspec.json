@@ -1,6 +1,6 @@
 {
   "name": "WIKit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "summary": "拓展基础控件，提高开发效率",
   "description": "TODO: 拓展基础控件，提高开发效率.",
   "homepage": "https://github.com/wikit-zyp/WIKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/wikit-zyp/WIKit.git",
-    "tag": "0.1.1"
+    "tag": "0.1.2"
   },
   "platforms": {
     "ios": "8.0"
@@ -29,15 +29,6 @@
     {
       "name": "Utility",
       "source_files": "WIKit/Utility/**/*"
-    },
-    {
-      "name": "WIUI",
-      "source_files": "WIKit/WIUI/**/*",
-      "dependencies": {
-        "WIKit/WICore": [
-
-        ]
-      }
     }
   ]
 }
