@@ -9,10 +9,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger,WIFontSizeModel) {
-    WIFontSizeModelDefault    = 0, //默认模式
-    WIFontSizeModelSmall      = 1, //小字体
-    WIFontSizeModelBig        = 2, //大字体
+typedef NS_ENUM(NSInteger,FontSizeModel) {
+    FontSizeModelDefault    = 0, //默认模式
+    FontSizeModelSmall      = 1, //小字体
+    FontSizeModelBig        = 2, //大字体
 };
 
 typedef struct __attribute__((objc_boxable)) DynamicFontSize {
@@ -27,13 +27,14 @@ CG_INLINE DynaFontSize DynaFontSizeMake(CGFloat def, CGFloat small, CGFloat big)
 UIKIT_EXTERN NSString *NSStringFromInt(DynaFontSize fontSize);
 UIKIT_EXTERN DynaFontSize DynaFontSizeFromString(NSString *string);
 
-FOUNDATION_EXPORT NSNotificationName const WIDynamicChangeFontSizeNotification;
+FOUNDATION_EXPORT NSNotificationName const DynamicChangeFontSizeNotification;
 
-#define fontModel WIFontSizeModelDefault //默认字体模式
-
-typedef void (^FontSizeChangeBlock)(WIFontSizeModel model);
+typedef void (^FontSizeChangeBlock)(FontSizeModel model);
 
 @interface UILabel (dynaFont)
+
++(FontSizeModel)fontModel;
++(void)setFontModel:(FontSizeModel)fontModel;
 
 //以下两种方法二选一
 @property(nonatomic)DynaFontSize dyna_fontSize;

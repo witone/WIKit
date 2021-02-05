@@ -18,9 +18,19 @@ DynaFontSize DynaFontSizeFromString(NSString *string) {
     return DynaFontSizeMake(fontSizeArr.firstObject.floatValue, fontSizeArr[1].floatValue, fontSizeArr.lastObject.floatValue);
 }
 
-NSNotificationName const WIDynamicChangeFontSizeNotification = @"WIDynamicChangeFontSizeNotification";
+NSNotificationName const DynamicChangeFontSizeNotification = @"DynamicChangeFontSizeNotification";
+
+static FontSizeModel wiFontModel;//全局字体模式 默认模式
 
 @implementation UILabel (dynaFont)
+
++(FontSizeModel)fontModel {
+    return wiFontModel;
+}
+
++(void)setFontModel:(FontSizeModel)fontModel {
+    wiFontModel = fontModel;
+}
 
 - (DynaFontSize)dyna_fontSize {
     NSString *fontSizeStr = objc_getAssociatedObject(self, @selector(dyna_fontSize));
@@ -31,7 +41,7 @@ NSNotificationName const WIDynamicChangeFontSizeNotification = @"WIDynamicChange
     NSString *fontSizeStr = NSStringFromInt(dyna_fontSize);
     objc_setAssociatedObject(self, @selector(dyna_fontSize), fontSizeStr, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self addDynamicChangeFontSizeNotification];
-    [self setDynamicFontOfSize:fontModel];
+    [self setDynamicFontOfSize:UILabel.fontModel];
 }
 
 -(FontSizeChangeBlock)dyna_fontSizeBlock {
@@ -41,19 +51,19 @@ NSNotificationName const WIDynamicChangeFontSizeNotification = @"WIDynamicChange
 -(void)setDyna_fontSizeBlock:(FontSizeChangeBlock)dyna_fontSizeBlock {
     objc_setAssociatedObject(self, @selector(dyna_fontSizeBlock), dyna_fontSizeBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
     [self addDynamicChangeFontSizeNotification];
-    self.dyna_fontSizeBlock(fontModel);
+    self.dyna_fontSizeBlock(UILabel.fontModel);
 }
 
 -(void)addDynamicChangeFontSizeNotification {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WIDynamicChangeFontSizeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGlobalFont:) name:WIDynamicChangeFontSizeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DynamicChangeFontSizeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGlobalFont:) name:DynamicChangeFontSizeNotification object:nil];
 }
 
 - (void)setGlobalFont:(NSNotification *)notification {
 //    if ([self isKindOfClass:NSClassFromString(@"UITextFieldLabel")] || [self isKindOfClass:NSClassFromString(@"UIButtonLabel")]) {
 //        return;
 //    }
-    WIFontSizeModel model = ((NSNumber *)notification.object).integerValue;
+    FontSizeModel model = ((NSNumber *)notification.object).integerValue;
     if (self.dyna_fontSizeBlock) {
         self.dyna_fontSizeBlock(model);
     }else {
@@ -61,12 +71,12 @@ NSNotificationName const WIDynamicChangeFontSizeNotification = @"WIDynamicChange
     }
 }
 
--(void)setDynamicFontOfSize:(WIFontSizeModel)model {
+-(void)setDynamicFontOfSize:(FontSizeModel)model {
     switch ((int)model) {
-        case WIFontSizeModelSmall:
+        case FontSizeModelSmall:
             self.font = [UIFont systemFontOfSize:self.dyna_fontSize.small];
             break;
-        case WIFontSizeModelBig:
+        case FontSizeModelBig:
             self.font = [UIFont systemFontOfSize:self.dyna_fontSize.big];
             break;
         default:
