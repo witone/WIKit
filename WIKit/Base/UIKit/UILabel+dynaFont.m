@@ -64,6 +64,7 @@ static FontSizeModel wiFontModel;//全局字体模式 默认模式
 //        return;
 //    }
     FontSizeModel model = ((NSNumber *)notification.object).integerValue;
+    [UILabel setFontModel:model];
     if (self.dyna_fontSizeBlock) {
         self.dyna_fontSizeBlock(model);
     }else {

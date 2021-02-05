@@ -37,7 +37,7 @@ typedef void (^FontSizeChangeBlock)(FontSizeModel model);
 +(void)setFontModel:(FontSizeModel)fontModel;
 
 //以下两种方法二选一
-@property(nonatomic)DynaFontSize dyna_fontSize;
+@property(nonatomic) DynaFontSize dyna_fontSize;
 @property(nonatomic,copy) FontSizeChangeBlock dyna_fontSizeBlock;
 
 @end
