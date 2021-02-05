@@ -20,7 +20,7 @@
 /**
  创建一个GCD异步线程
  用于：替换dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{});
- 并设定semaphore的值为10
+ 并设定semaphore的值为20
  */
 UIKIT_EXTERN void wi_dispatch_global_queue_async(dispatch_block_t block);
 

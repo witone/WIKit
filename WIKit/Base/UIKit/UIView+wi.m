@@ -132,7 +132,7 @@
     return [self initWithFrame:CGRectMakeWithSize(size)];
 }
 
-- (void)bw_radiusWithRadius:(CGFloat)radius {
+- (void)wi_radiusWithRadius:(CGFloat)radius {
     [self wi_radiusWithRadius:radius corner:UIRectCornerAllCorners];
 }
 

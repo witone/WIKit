@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)wi_initWithSize:(CGSize)size;
 
-- (void)bw_radiusWithRadius:(CGFloat)radius;
+- (void)wi_radiusWithRadius:(CGFloat)radius;
 - (void)wi_radiusWithRadius:(CGFloat)radius corner:(UIRectCorner)corner;
 
 - (void)wi_setLayerShadow:(nullable UIColor*)color offset:(CGSize)offset radius:(CGFloat)radius;
