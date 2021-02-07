@@ -7,7 +7,6 @@
 //
 
 #import "NSURL+wi.h"
-#import "NSString+wi.h"
 
 @implementation NSURL (wi)
 

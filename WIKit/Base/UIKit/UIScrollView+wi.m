@@ -7,7 +7,7 @@
 //
 
 #import "UIScrollView+wi.h"
-#import "NSObject+wi.h"
+#import "WIObject.h"
 #import "objc/runtime.h"
 
 static NSString *wiGestureDelegateKey = @"wiGestureDelegateKey";
@@ -20,9 +20,10 @@ static NSString *wiGestureDelegateKey = @"wiGestureDelegateKey";
 
 -(void)setWi_gestureDelegate:(id<WIScrollViewGestureDelegate>)wi_gestureDelegate {
     __weak __typeof(&*self) weakSelf = self;
-    [self setWi_block:^{
+    WIObject *obj = [[WIObject alloc]initWithBlock:^{
         objc_setAssociatedObject(weakSelf, &wiGestureDelegateKey, nil, OBJC_ASSOCIATION_ASSIGN);
     }];
+    objc_setAssociatedObject(wi_gestureDelegate, (__bridge const void *)(obj.block), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     objc_setAssociatedObject(self, &wiGestureDelegateKey, wi_gestureDelegate, OBJC_ASSOCIATION_ASSIGN);
 }
 

@@ -10,25 +10,7 @@
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
-static NSString *wiBlockKey = @"wiBlockKey";
-
 @implementation NSObject (wi)
-
--(DeallocBlock)wi_block {
-    return objc_getAssociatedObject(self, &wiBlockKey);
-}
-
-- (void)setWi_block:(DeallocBlock)wi_block {
-    objc_setAssociatedObject(self, &wiBlockKey, wi_block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
-- (void)dealloc {
-    self.wi_block ? self.wi_block() : nil;
-    objc_setAssociatedObject(self, &wiBlockKey, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-#pragma clang diagnostic pop
 
 + (BOOL)wi_swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel {
     Method originalMethod = class_getInstanceMethod(self, originalSel);

@@ -8,11 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^DeallocBlock)(void);
-
 @interface NSObject (wi)
-
-@property (nonatomic, copy) DeallocBlock wi_block;
 
 + (BOOL)wi_swizzleInstanceMethod:(SEL)originalSel with:(SEL)newSel;
 
