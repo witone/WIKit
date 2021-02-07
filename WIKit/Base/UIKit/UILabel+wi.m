@@ -7,48 +7,83 @@
 //
 
 #import "UILabel+wi.h"
+#import "objc/runtime.h"
+
+NSString *NSStringFromInt(DynaFontSize fontSize) {
+    return [NSString stringWithFormat:@"%f-%f-%f",fontSize.def,fontSize.small,fontSize.big];
+}
+
+DynaFontSize DynaFontSizeFromString(NSString *string) {
+    NSArray<NSString *> *fontSizeArr = [string componentsSeparatedByString:@"-"];
+    return DynaFontSizeMake(fontSizeArr.firstObject.floatValue, fontSizeArr[1].floatValue, fontSizeArr.lastObject.floatValue);
+}
+
+NSNotificationName const DynamicChangeFontSizeNotification = @"DynamicChangeFontSizeNotification";
+
+static FontSizeModel wiFontModel;//全局字体模式 默认模式
 
 @implementation UILabel (wi)
 
-- (void)wi_setText:(NSString*)text lineSpacing:(CGFloat)lineSpacing {
-    if (!text || lineSpacing < 0.01) {
-        self.text = text;
-        return;
++(FontSizeModel)fontModel {
+    return wiFontModel;
+}
+
++(void)setFontModel:(FontSizeModel)fontModel {
+    wiFontModel = fontModel;
+}
+
+- (DynaFontSize)dyna_fontSize {
+    NSString *fontSizeStr = objc_getAssociatedObject(self, @selector(dyna_fontSize));
+    return DynaFontSizeFromString(fontSizeStr);
+}
+
+-(void)setDyna_fontSize:(DynaFontSize)dyna_fontSize {
+    NSString *fontSizeStr = NSStringFromInt(dyna_fontSize);
+    objc_setAssociatedObject(self, @selector(dyna_fontSize), fontSizeStr, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self addDynamicChangeFontSizeNotification];
+    [self setDynamicFontOfSize:UILabel.fontModel];
+}
+
+-(FontSizeChangeBlock)dyna_fontSizeBlock {
+    return objc_getAssociatedObject(self, @selector(dyna_fontSizeBlock));;
+}
+
+-(void)setDyna_fontSizeBlock:(FontSizeChangeBlock)dyna_fontSizeBlock {
+    objc_setAssociatedObject(self, @selector(dyna_fontSizeBlock), dyna_fontSizeBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self addDynamicChangeFontSizeNotification];
+    self.dyna_fontSizeBlock(UILabel.fontModel);
+}
+
+-(void)addDynamicChangeFontSizeNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DynamicChangeFontSizeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGlobalFont:) name:DynamicChangeFontSizeNotification object:nil];
+}
+
+- (void)setGlobalFont:(NSNotification *)notification {
+//    if ([self isKindOfClass:NSClassFromString(@"UITextFieldLabel")] || [self isKindOfClass:NSClassFromString(@"UIButtonLabel")]) {
+//        return;
+//    }
+    FontSizeModel model = ((NSNumber *)notification.object).integerValue;
+    [UILabel setFontModel:model];
+    if (self.dyna_fontSizeBlock) {
+        self.dyna_fontSizeBlock(model);
+    }else {
+        [self setDynamicFontOfSize:model];
     }
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:lineSpacing];//设置行间距
-    [paragraphStyle setLineBreakMode:self.lineBreakMode];
-    [paragraphStyle setAlignment:self.textAlignment];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
-    self.attributedText = attributedString;
 }
 
-+ (CGFloat)wi_getSpaceLabelHeight:(NSString*)str withFont:(UIFont*)font withWidth:(CGFloat)width lineSpacing:(CGFloat)lineSpacing {
-    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
-    paraStyle.alignment = NSTextAlignmentLeft;
-    paraStyle.lineSpacing= lineSpacing;
-    paraStyle.hyphenationFactor=1.0;
-    paraStyle.firstLineHeadIndent = 0.0;
-    paraStyle.paragraphSpacingBefore = 0.0;
-    paraStyle.headIndent=0;
-    paraStyle.tailIndent=0;
-    NSDictionary *dic = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.5f};
-    CGSize size = [str boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
-    return size.height;
-}
-
-+ (CGFloat )wi_sizeWithInfo:(NSString *)info withFont:(UIFont *)font{
-    if (info == nil || [info isEqual:[NSNull null]] || [info isKindOfClass:[NSNull class]]) return 0;
-    CGSize size = [info boundingRectWithSize:CGSizeMake(MAXFLOAT, 1) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName:font} context:nil].size;
-    return size.width;
-}
-
-+ (CGFloat )wi_sizeWithInfo:(NSString *)info withWidth:(CGFloat)width withFont:(UIFont *)font{
-    if (info == nil || [info isEqual:[NSNull null]] || [info isKindOfClass:[NSNull class]]) return 0;
-    CGSize size = [info boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName:font} context:nil].size;
-    return size.height;
+-(void)setDynamicFontOfSize:(FontSizeModel)model {
+    switch ((int)model) {
+        case FontSizeModelSmall:
+            self.font = [UIFont systemFontOfSize:self.dyna_fontSize.small];
+            break;
+        case FontSizeModelBig:
+            self.font = [UIFont systemFontOfSize:self.dyna_fontSize.big];
+            break;
+        default:
+            self.font = [UIFont systemFontOfSize:self.dyna_fontSize.def];
+            break;
+    }
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "WIKeyChain.h"
+#import <Security/Security.h>
 
 @implementation WIKeyChain
 

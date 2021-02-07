@@ -12,6 +12,7 @@
 
 #import "WIKit.h"
 #import "WIKeyChain.h"
+#import "WIObject.h"
 #import "WIQueueAsync.h"
 #import "WIWeakProxy.h"
 #import "NSArray+wi.h"

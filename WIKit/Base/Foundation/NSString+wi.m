@@ -218,3 +218,38 @@
 }
 
 @end
+
+
+@implementation NSString (json)
+
+-(id)wi_handleJsonString {
+    if (!self.wi_isNotNull) return nil;
+
+    NSString *jsonStr = self;
+    if ([self hasPrefix:@"\""]) {
+        jsonStr = [self substringWithRange:NSMakeRange(1, self.length-2)];
+    }
+    
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    id result = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+    if(err) NSLog(@"json解析失败：%@",err);
+    return result;
+}
+
+-(NSDictionary *)wi_dicWithJsonString {
+    if (!self.wi_isNotNull) return nil;
+
+    NSString *jsonStr = self;
+    if ([self hasPrefix:@"\""]) {
+        jsonStr = [self substringWithRange:NSMakeRange(1, self.length-2)];
+    }
+    
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&err];
+    if(err) NSLog(@"json解析失败：%@",err);
+    return dic;
+}
+
+@end

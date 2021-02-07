@@ -85,4 +85,12 @@ static inline NSString *WIStringFromFloat(float floatValue) {
 
 @end
 
+@interface NSString (json)
+
+-(id)wi_handleJsonString;
+
+-(NSDictionary *)wi_dicWithJsonString;
+
+@end
+
 NS_ASSUME_NONNULL_END

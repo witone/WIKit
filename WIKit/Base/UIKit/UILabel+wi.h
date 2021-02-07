@@ -2,42 +2,42 @@
 //  UILabel+wi.h
 //  WIKit
 //
+//  自定义动态字体
 //  Created by zyp on 01/29/2021.
 //  Copyright (c) 2021 zyp. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSInteger,FontSizeModel) {
+    FontSizeModelDefault    = 0, //默认模式
+    FontSizeModelSmall      = 1, //小字体
+    FontSizeModelBig        = 2, //大字体
+};
+
+typedef struct __attribute__((objc_boxable)) DynamicFontSize {
+    CGFloat def,small,big;
+} DynaFontSize;
+
+CG_INLINE DynaFontSize DynaFontSizeMake(CGFloat def, CGFloat small, CGFloat big) {
+    DynaFontSize fontSize = {def, small, big};
+    return fontSize;
+};
+
+UIKIT_EXTERN NSString *NSStringFromInt(DynaFontSize fontSize);
+UIKIT_EXTERN DynaFontSize DynaFontSizeFromString(NSString *string);
+
+FOUNDATION_EXPORT NSNotificationName const DynamicChangeFontSizeNotification;
+
+typedef void (^FontSizeChangeBlock)(FontSizeModel model);
 
 @interface UILabel (wi)
 
-/**
- 设置文本,并指定行间距
++(FontSizeModel)fontModel;
++(void)setFontModel:(FontSizeModel)fontModel;
 
- @param text 文本内容
- @param lineSpacing 行间距
- */
--(void)wi_setText:(NSString *)text lineSpacing:(CGFloat)lineSpacing;
-
-+(CGFloat)wi_getSpaceLabelHeight:(NSString*)str withFont:(UIFont*)font withWidth:(CGFloat)width lineSpacing:(CGFloat)lineSpacing;
-
-/**
-获取文字宽度
-
-@param info 文本内容
-@param font 字体
-*/
-+(CGFloat)wi_sizeWithInfo:(NSString *)info withFont:(UIFont *)font;
-
-/**
-获取文字高度
-
-@param info 文本内容
-@param font 字体
-*/
-+(CGFloat)wi_sizeWithInfo:(NSString *)info withWidth:(CGFloat)width withFont:(UIFont *)font;
+//以下两种方法二选一
+@property(nonatomic) DynaFontSize dyna_fontSize;
+@property(nonatomic,copy) FontSizeChangeBlock dyna_fontSizeBlock;
 
 @end
-
-NS_ASSUME_NONNULL_END
