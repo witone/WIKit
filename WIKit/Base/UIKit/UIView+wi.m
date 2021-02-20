@@ -159,7 +159,11 @@
 }
 
 - (UIImage *)wi_snapshotImage {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
+    return [self wi_snapshotImage:self.opaque];
+}
+
+- (UIImage *)wi_snapshotImage:(BOOL)opaque {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, opaque, 0);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *snap = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

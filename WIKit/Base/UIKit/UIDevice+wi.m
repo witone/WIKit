@@ -11,7 +11,7 @@
 @implementation UIDevice (wi)
 
 + (NSString *)wi_idfv {
-    return UIDevice.currentDevice.identifierForVendor.UUIDString;
+    return UIDevice.currentDevice.identifierForVendor.UUIDString ? : @"";
 }
 
 + (BOOL)wi_isPhone {

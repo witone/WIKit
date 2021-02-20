@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wi_setLayerShadow:(nullable UIColor*)color offset:(CGSize)offset radius:(CGFloat)radius;
 
 - (UIImage *)wi_snapshotImage;
+- (UIImage *)wi_snapshotImage:(BOOL)opaque;
 
 - (UIImage *)wi_snapshotImageAfterScreenUpdates:(BOOL)afterUpdates;
 
