@@ -21,8 +21,8 @@ dispatch_semaphore_t wi_dispatch_global_semaphore() {
     static dispatch_semaphore_t semaphore;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        //创建一个初始值为20的semaphore
-        semaphore = dispatch_semaphore_create(20);
+        //创建一个初始值为30的semaphore
+        semaphore = dispatch_semaphore_create(30);
     });
     return semaphore;
 }
