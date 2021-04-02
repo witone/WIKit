@@ -8,7 +8,7 @@
 
 #import "WIQueueAsync.h"
 
-dispatch_queue_t wi_dispatch_global_queue() {
+/*dispatch_queue_t wi_dispatch_global_queue() {
     static dispatch_queue_t queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -37,6 +37,10 @@ void wi_dispatch_global_queue_async(dispatch_block_t block) {
         //block执行完，信号量+1
         dispatch_semaphore_signal(semphore);
     });
+}*/
+
+void wi_dispatch_global_queue_async(dispatch_block_t block) {
+    dispatch_async(dispatch_get_global_queue(0, 0), block);
 }
 
 void wi_dispatch_main_async_safe(dispatch_block_t block) {

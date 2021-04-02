@@ -35,10 +35,8 @@
 }
 
 + (void)wi_timerStop:(NSTimer *)timer {
-    if (timer && timer.isValid) {
-        [timer invalidate];
-        timer = nil;
-    }
+    if (timer && timer.isValid) [timer invalidate];
+    if (timer) timer = nil;
 }
 
 - (void)wi_timerStart {
@@ -46,16 +44,12 @@
 }
 
 - (void)wi_timerPause {
-    if (!self.isValid) {
-        return;
-    }
+    //if (!self.isValid) return;
     [self setFireDate:[NSDate distantFuture]];
 }
 
 - (void)wi_timerResume {
-    if (!self.isValid) {
-        return;
-    }
+    //if (!self.isValid) return;
     [self setFireDate:[NSDate date]];
 }
 
