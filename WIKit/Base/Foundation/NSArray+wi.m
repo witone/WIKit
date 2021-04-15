@@ -14,6 +14,7 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+#ifndef DEBUG
         [NSArray wi_swizzleClassMethod:@selector(arrayWithObjects:count:) with:@selector(safe_arrayWithObjects:count:)];
         [NSArray wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(safe_objectAtIndexedSubscript:)];
 
@@ -26,6 +27,7 @@
         [__NSArrayI wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(__NSArrayIAvoidCrashObjectAtIndex:)];
         [__NSSingleObjectArrayI wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(__NSSingleObjectArrayIAvoidCrashObjectAtIndex:)];
         [__NSArray0 wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(__NSArray0AvoidCrashObjectAtIndex:)];
+#endif
     });
 }
 
@@ -119,6 +121,7 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+#ifndef DEBUG
         Class arrayCls = NSClassFromString(@"__NSArrayM");
         [arrayCls wi_swizzleInstanceMethod:@selector(insertObject:atIndex:) with:@selector(safe_insertObject:atIndex:)];
         [arrayCls wi_swizzleInstanceMethod:@selector(setObject:atIndex:) with:@selector(safe_setObject:atIndex:)];
@@ -131,6 +134,7 @@
         if (@available(iOS 11.0,*)) {
             [arrayCls wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(avoidCrashObjectAtIndexedSubscript:)];
         }
+#endif
     });
 }
 

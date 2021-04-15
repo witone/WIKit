@@ -14,7 +14,9 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+#ifndef DEBUG
         [NSDictionary wi_swizzleClassMethod:@selector(dictionaryWithObjects:forKeys:count:) with:@selector(safe_dictionaryWithObjects:forKeys:count:)];
+#endif
     });
 }
 
@@ -40,9 +42,11 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+#ifndef DEBUG
         Class dictCls = NSClassFromString(@"__NSDictionaryM");
         [dictCls wi_swizzleClassMethod:@selector(setObject:forKey:) with:@selector(safe_setObject:forKey:)];
         [dictCls wi_swizzleClassMethod:@selector(removeObjectForKey:) with:@selector(safe_removeObjectForKey:)];
+#endif
     });
 }
 /// 避免这种crash：[myDict setObject:nilObj forKey:@"your_key"];
