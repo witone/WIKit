@@ -1,20 +1,25 @@
 PODS:
-  - WIKit (0.1.5):
-    - WIKit/Utility (= 0.1.5)
-    - WIKit/WICore (= 0.1.5)
-  - WIKit/Utility (0.1.5)
-  - WIKit/WICore (0.1.5):
-    - WIKit/Utility
+  - WIKit (0.1.9):
+    - WIKit/WICore (= 0.1.9)
+    - WIUtility
+  - WIKit/WICore (0.1.9):
+    - WIUtility
+  - WIUtility (0.1.9)
 
 DEPENDENCIES:
   - WIKit (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - WIUtility
 
 EXTERNAL SOURCES:
   WIKit:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WIKit: b0179d50ffb00f62de2d66d14d5a6958ab3e1f64
+  WIKit: 16bb42440e6da29adcfa1aaff8431e905d868cf0
+  WIUtility: c08b91aa085b8f7568cfb71ff93e0bae9eb34769
 
 PODFILE CHECKSUM: a29a05ce4f787ba9665d1dc740db8e054325fbf2
 

@@ -11,10 +11,6 @@
 #endif
 
 #import "WIKit.h"
-#import "WIKeyChain.h"
-#import "WIObject.h"
-#import "WIQueueAsync.h"
-#import "WIWeakProxy.h"
 #import "NSArray+wi.h"
 #import "NSData+wi.h"
 #import "NSDictionary+wi.h"
@@ -29,7 +25,6 @@
 #import "UIDevice+wi.h"
 #import "UIFont+wi.h"
 #import "UIImage+wi.h"
-#import "UILabel+dynaFont.h"
 #import "UILabel+wi.h"
 #import "UINavigationController+wi.h"
 #import "UIScrollView+wi.h"

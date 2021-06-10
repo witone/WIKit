@@ -303,10 +303,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WIKit_Example/Pods-WIKit_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/WIKit/WIKit.framework",
+				"${BUILT_PRODUCTS_DIR}/WIUtility/WIUtility.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WIKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WIUtility.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -494,6 +496,7 @@
 			baseConfigurationReference = BEE81159B95F310C94F5A39E /* Pods-WIKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WIKit/WIKit-Prefix.pch";
 				INFOPLIST_FILE = "WIKit/WIKit-Info.plist";
@@ -512,6 +515,7 @@
 			baseConfigurationReference = 6B73C4F59874782BAF52F8AD /* Pods-WIKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WIKit/WIKit-Prefix.pch";
 				INFOPLIST_FILE = "WIKit/WIKit-Info.plist";

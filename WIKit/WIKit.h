@@ -34,10 +34,4 @@ FOUNDATION_EXPORT const unsigned char WIKitVersionString[];
 #import "NSNotification+wi.h"
 #import "NSTimer+wi.h"
 
-#import "WIWeakProxy.h"
-#import "WIQueueAsync.h"
-#import "WIKeyChain.h"
-
-
-
 #endif /* WIKit_h */

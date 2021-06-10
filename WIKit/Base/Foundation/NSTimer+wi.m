@@ -7,7 +7,7 @@
 //
 
 #import "NSTimer+wi.h"
-#import "WIWeakProxy.h"
+#import <WIUtility/WIWeakProxy.h>
 
 @implementation NSTimer (wi)
 
