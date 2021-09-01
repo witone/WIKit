@@ -41,6 +41,8 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [class performSelector:selector withObject:exception];
 #pragma clang diagnostic pop
+    }else {
+        NSLog(@"%@", exception.description);
     }
 }
 

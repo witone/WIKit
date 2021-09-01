@@ -46,20 +46,40 @@
         Class dictCls = NSClassFromString(@"__NSDictionaryM");
         [dictCls wi_swizzleClassMethod:@selector(setObject:forKey:) with:@selector(safe_setObject:forKey:)];
         [dictCls wi_swizzleClassMethod:@selector(removeObjectForKey:) with:@selector(safe_removeObjectForKey:)];
+
+        //setObject:forKeyedSubscript:
+        if (@available(iOS 11.0,*)) {
+            [dictCls wi_swizzleClassMethod:@selector(setObject:forKeyedSubscript:) with:@selector(safe_setObject:forKeyedSubscript:)];
+        }
 #endif
     });
 }
 /// 避免这种crash：[myDict setObject:nilObj forKey:@"your_key"];
-- (void)safe_setObject:(id)anObject forKey:(id<NSCopying>)aKey {
-    if (!anObject||!aKey) return;
-    [self safe_setObject:anObject forKey:aKey];
+- (void)safe_setObject:(id)obj forKey:(id<NSCopying>)key {
+    if (!obj||!key) return;
+    @try {
+        [self safe_setObject:obj forKey:key];
+    } @catch (NSException *exception) {
+        [NSObject wi_recordException:exception];
+    }
 }
 
--(void)safe_removeObjectForKey:(id)aKey {
-    if (!aKey) {
-        NSLog(@"The Key of removeObjectForKey can not be nil");
-    }else{
-        [self safe_removeObjectForKey:aKey];
+-(void)safe_removeObjectForKey:(id)key {
+    if (!key) return;
+    @try {
+        [self safe_removeObjectForKey:key];
+    } @catch (NSException *exception) {
+        [NSObject wi_recordException:exception];
+    }
+}
+
+#pragma mark - setObject:forKeyedSubscript:
+- (void)safe_setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key {
+    if (!obj||!key) return;
+    @try {
+        [self safe_setObject:obj forKeyedSubscript:key];
+    } @catch (NSException *exception) {
+        [NSObject wi_recordException:exception];
     }
 }
 
