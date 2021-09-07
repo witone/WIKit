@@ -15,12 +15,16 @@
     if (url == nil) {
         url = [NSURL URLWithString:[NSURL wi_urlQueryEncode:string]];
     }
+    if (url == nil) {//保底
+        NSString *resultStr = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        url = [NSURL URLWithString:resultStr];
+    }
     return url;
 }
 
 + (NSString *)wi_urlQueryEncode:(NSString *)urlString {
     //NSString *resultString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *charactersToEscape = @"\"%<>[\\]^`{|}";
+    NSString *charactersToEscape = @"\"%<>[\\]^`{|} ";
     NSCharacterSet *urlQueryAllowedCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
     NSString *resultString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:urlQueryAllowedCharacterSet];
     return resultString;
