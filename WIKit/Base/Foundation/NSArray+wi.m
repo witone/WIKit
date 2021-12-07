@@ -15,7 +15,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 #ifndef DEBUG
-        [NSArray wi_swizzleClassMethod:@selector(arrayWithObjects:count:) with:@selector(safe_arrayWithObjects:count:)];
+        [NSArray wi_swizzleClassMethod:@selector(arrayWithObjects:count:) with:@selector(wiSafe_arrayWithObjects:count:)];
 
         Class __NSArrayI = NSClassFromString(@"__NSArrayI");
         Class __NSSingleObjectArrayI = NSClassFromString(@"__NSSingleObjectArrayI");
