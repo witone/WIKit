@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary (Safe)
-
-@end
-
 @interface NSDictionary (wi)
 
 -(NSString *)wi_jsonString;

@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSArray (Safe)
-
-@end
-
 @interface NSArray (wi)
 
 //针对按key排好序的数组查重

@@ -9,7 +9,7 @@
 #import "NSArray+wi.h"
 #import "NSObject+wi.h"
 
-@implementation NSArray (Safe)
+@implementation NSArray (wiSafe)
 
 + (void)load {
     static dispatch_once_t onceToken;
@@ -22,22 +22,22 @@
         Class __NSArray0 = NSClassFromString(@"__NSArray0");
 
         //objectsAtIndexes:
-        [NSArray wi_swizzleInstanceMethod:@selector(objectsAtIndexes:) with:@selector(safe_objectsAtIndexes:)];
+        [NSArray wi_swizzleInstanceMethod:@selector(objectsAtIndexes:) with:@selector(wiSafe_objectsAtIndexes:)];
 
         //objectAtIndexedSubscript:
-        [NSArray wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(safe_objectAtIndexedSubscript:)];
+        [NSArray wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(wiSafe_objectAtIndexedSubscript:)];
         if (@available(iOS 11.0,*)) {
-            [__NSArrayI wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(__NSArrayIAvoidCrashObjectAtIndexedSubscript:)];
+            [__NSArrayI wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(wiSafe__NSArrayIAvoidCrashObjectAtIndexedSubscript:)];
         }
         //objectAtIndex:
-        [__NSArrayI wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(__NSArrayIAvoidCrashObjectAtIndex:)];
-        [__NSSingleObjectArrayI wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(__NSSingleObjectArrayIAvoidCrashObjectAtIndex:)];
-        [__NSArray0 wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(__NSArray0AvoidCrashObjectAtIndex:)];
+        [__NSArrayI wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(wiSafe__NSArrayIAvoidCrashObjectAtIndex:)];
+        [__NSSingleObjectArrayI wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(wiSafe__NSSingleObjectArrayIAvoidCrashObjectAtIndex:)];
+        [__NSArray0 wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(wiSafe__NSArray0AvoidCrashObjectAtIndex:)];
 #endif
     });
 }
 
-- (id)safe_objectAtIndexedSubscript:(NSUInteger)index {
+- (id)wiSafe_objectAtIndexedSubscript:(NSUInteger)index {
     if (index >= self.count) {
         return nil;
     } else {
@@ -46,7 +46,7 @@
 }
 
 /// 避免这种crash:@[@"aa", nilObj]
-+ (instancetype)safe_arrayWithObjects:(const id [])objects count:(NSUInteger)cnt {
++ (instancetype)wiSafe_arrayWithObjects:(const id [])objects count:(NSUInteger)cnt {
     id nObjects[cnt];
     int i=0, j=0;
     for (; i<cnt && j<cnt; i++) {
@@ -55,14 +55,14 @@
             j++;
         }
     }
-    return [self safe_arrayWithObjects:nObjects count:j];
+    return [self wiSafe_arrayWithObjects:nObjects count:j];
 }
 
 #pragma mark - objectAtIndexedSubscript:
-- (id)__NSArrayIAvoidCrashObjectAtIndexedSubscript:(NSUInteger)idx {
+- (id)wiSafe__NSArrayIAvoidCrashObjectAtIndexedSubscript:(NSUInteger)idx {
     id object = nil;
     @try {
-        object = [self __NSArrayIAvoidCrashObjectAtIndexedSubscript:idx];
+        object = [self wiSafe__NSArrayIAvoidCrashObjectAtIndexedSubscript:idx];
     } @catch (NSException *exception) { //异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -71,10 +71,10 @@
 }
 
 #pragma mark - objectsAtIndexes:
-- (NSArray *)safe_objectsAtIndexes:(NSIndexSet *)indexes {
+- (NSArray *)wiSafe_objectsAtIndexes:(NSIndexSet *)indexes {
     NSArray *returnArray = nil;
     @try {
-        returnArray = [self safe_objectsAtIndexes:indexes];
+        returnArray = [self wiSafe_objectsAtIndexes:indexes];
     } @catch (NSException *exception) { //异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -84,10 +84,10 @@
 
 #pragma mark - objectAtIndex:
 //__NSArrayI  objectAtIndex:
-- (id)__NSArrayIAvoidCrashObjectAtIndex:(NSUInteger)index {
+- (id)wiSafe__NSArrayIAvoidCrashObjectAtIndex:(NSUInteger)index {
     id object = nil;
     @try {
-        object = [self __NSArrayIAvoidCrashObjectAtIndex:index];
+        object = [self wiSafe__NSArrayIAvoidCrashObjectAtIndex:index];
     } @catch (NSException *exception) { //异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -96,10 +96,10 @@
 }
 
 //__NSSingleObjectArrayI objectAtIndex:
-- (id)__NSSingleObjectArrayIAvoidCrashObjectAtIndex:(NSUInteger)index {
+- (id)wiSafe__NSSingleObjectArrayIAvoidCrashObjectAtIndex:(NSUInteger)index {
     id object = nil;
     @try {
-        object = [self __NSSingleObjectArrayIAvoidCrashObjectAtIndex:index];
+        object = [self wiSafe__NSSingleObjectArrayIAvoidCrashObjectAtIndex:index];
     } @catch (NSException *exception) { //异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -108,10 +108,10 @@
 }
 
 //__NSArray0 objectAtIndex:
-- (id)__NSArray0AvoidCrashObjectAtIndex:(NSUInteger)index {
+- (id)wiSafe__NSArray0AvoidCrashObjectAtIndex:(NSUInteger)index {
     id object = nil;
     @try {
-        object = [self __NSArray0AvoidCrashObjectAtIndex:index];
+        object = [self wiSafe__NSArray0AvoidCrashObjectAtIndex:index];
     } @catch (NSException *exception) {//异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -122,7 +122,7 @@
 @end
 
 
-@implementation NSMutableArray (Safe)
+@implementation NSMutableArray (wiSafe)
 
 + (void)load {
     static dispatch_once_t onceToken;
@@ -131,42 +131,42 @@
         Class arrayCls = NSClassFromString(@"__NSArrayM");
 
         //insertObject:atIndex:
-        [arrayCls wi_swizzleInstanceMethod:@selector(insertObject:atIndex:) with:@selector(safe_insertObject:atIndex:)];
+        [arrayCls wi_swizzleInstanceMethod:@selector(insertObject:atIndex:) with:@selector(wiSafe_insertObject:atIndex:)];
 
         //setObject:atIndex:
-        [arrayCls wi_swizzleInstanceMethod:@selector(setObject:atIndex:) with:@selector(safe_setObject:atIndex:)];
+        [arrayCls wi_swizzleInstanceMethod:@selector(setObject:atIndex:) with:@selector(wiSafe_setObject:atIndex:)];
 
         //setObject:atIndexedSubscript:
-        [arrayCls wi_swizzleInstanceMethod:@selector(setObject:atIndexedSubscript:) with:@selector(safe_setObject:atIndexedSubscript:)];
+        [arrayCls wi_swizzleInstanceMethod:@selector(setObject:atIndexedSubscript:) with:@selector(wiSafe_setObject:atIndexedSubscript:)];
 
         //objectAtIndex:
-        [arrayCls wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(safe_objectAtIndex:)];
+        [arrayCls wi_swizzleInstanceMethod:@selector(objectAtIndex:) with:@selector(wiSafe_objectAtIndex:)];
 
         //removeObjectAtIndex:
-        [arrayCls wi_swizzleInstanceMethod:@selector(removeObjectAtIndex:) with:@selector(safe_removeObjectAtIndex:)];
+        [arrayCls wi_swizzleInstanceMethod:@selector(removeObjectAtIndex:) with:@selector(wiSafe_removeObjectAtIndex:)];
 
         //objectAtIndexedSubscript
         if (@available(iOS 11.0,*)) {
-            [arrayCls wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(safe_objectAtIndexedSubscript:)];
+            [arrayCls wi_swizzleInstanceMethod:@selector(objectAtIndexedSubscript:) with:@selector(wiSafe_objectAtIndexedSubscript:)];
         }
 #endif
     });
 }
 
 /// 避免这种crash: [myArray addObject:nilObj];
-- (void)safe_insertObject:(id)anObject atIndex:(NSUInteger)index {
+- (void)wiSafe_insertObject:(id)anObject atIndex:(NSUInteger)index {
     if (!anObject) return;
-    [self safe_insertObject:anObject atIndex:index];
+    [self wiSafe_insertObject:anObject atIndex:index];
 }
 
 /// 避免这种crash: [myArray addObject:nilObj];
-- (void)safe_setObject:(id)anObject atIndex:(NSUInteger)index {
+- (void)wiSafe_setObject:(id)anObject atIndex:(NSUInteger)index {
     if (!anObject) return;
-    [self safe_setObject:anObject atIndex:index];
+    [self wiSafe_setObject:anObject atIndex:index];
 }
 
 ///  避免这种crash: myArray[0] = nilObj;
-- (void)safe_setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+- (void)wiSafe_setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
     if (obj == nil ||self.count < idx) return;
     if (idx == self.count) {
         [self addObject:obj];
@@ -176,9 +176,9 @@
 }
 
 #pragma mark - removeObjectAtIndex:
-- (void)safe_removeObjectAtIndex:(NSUInteger)index {
+- (void)wiSafe_removeObjectAtIndex:(NSUInteger)index {
     @try {
-        [self safe_removeObjectAtIndex:index];
+        [self wiSafe_removeObjectAtIndex:index];
     } @catch (NSException *exception) { //异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -186,10 +186,10 @@
 }
 
 #pragma mark - objectAtIndex:
-- (id)safe_objectAtIndex:(NSUInteger)index {
+- (id)wiSafe_objectAtIndex:(NSUInteger)index {
     id object = nil;
     @try {
-        object = [self safe_objectAtIndex:index];
+        object = [self wiSafe_objectAtIndex:index];
     }@catch (NSException *exception) {//异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
@@ -198,10 +198,10 @@
 }
 
 #pragma mark - objectAtIndexedSubscript:
-- (id)safe_objectAtIndexedSubscript:(NSUInteger)idx {
+- (id)wiSafe_objectAtIndexedSubscript:(NSUInteger)idx {
     id object = nil;
     @try {
-        object = [self safe_objectAtIndexedSubscript:idx];
+        object = [self wiSafe_objectAtIndexedSubscript:idx];
     } @catch (NSException *exception) { //异常处理...
         [NSObject wi_recordException:exception];
     } @finally {
