@@ -19,9 +19,14 @@ FOUNDATION_EXPORT const unsigned char WIKitVersionString[];
 #import "UIFont+wi.h"
 #import "UILabel+wi.h"
 #import "UIImage+wi.h"
+#import "UIScrollView+wi.h"
 #import "UINavigationController+wi.h"
 #import "UIViewController+wi.h"
 #import "UITabBar+wi.h"
+
+#import "UIApplication+wi.h"
+
+#import "UIDevice+wi.h"
 
 #import "CALayer+wi.h"
 
