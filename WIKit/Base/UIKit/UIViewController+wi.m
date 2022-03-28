@@ -32,7 +32,7 @@
     return visibleVC;
 }
 
-- (void)dissmissSelfAnimated:(BOOL)flag completion:(void (^)(void))completion {
+- (void)dismissAnimated:(BOOL)flag completion:(void (^)(void))completion {
     if (self.navigationController.viewControllers.count>1) {
         [self.navigationController popViewControllerAnimated:flag];
         if (completion) completion();

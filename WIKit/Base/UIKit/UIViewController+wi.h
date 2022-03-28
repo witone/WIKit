@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable UIViewController *)wi_currentVC;
 
-- (void)dissmissSelfAnimated:(BOOL)flag completion:(nullable void (^)(void))completion;
+- (void)dismissAnimated:(BOOL)flag completion:(nullable void (^)(void))completion;
 
 - (void)launchViewController:(UIViewController *)viewController animated: (BOOL)flag completion:(void (^)(void))completion;
 
