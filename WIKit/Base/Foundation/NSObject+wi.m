@@ -34,7 +34,7 @@
 }
 
 + (void)wi_recordException:(NSException *)exception {
-    Class class = NSClassFromString(@"WILogUtils");
+    Class class = NSClassFromString(@"WILog");
     SEL selector = NSSelectorFromString(@"exceptionLog:");
     if (class && [class respondsToSelector:selector]) {
 #pragma clang diagnostic push
