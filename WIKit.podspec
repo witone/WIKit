@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: 拓展基础控件，提高开发效率.
                        DESC
 
-  s.homepage         = 'https://github.com/wikit-zyp/WIKit'
+  s.homepage         = 'https://github.com/iwikit/WIKit'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'zyp' => 'me_zyp@163.com' }
-  s.source           = { :git => 'https://github.com/wikit-zyp/WIKit.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/iwikit/WIKit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
