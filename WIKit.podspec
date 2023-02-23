@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WIKit'
-  s.version          = '0.2.5'
+  s.version          = '0.2.6'
   s.summary          = '拓展基础控件，提高开发效率'
 
 # This description is used to generate tags and improve search results.
